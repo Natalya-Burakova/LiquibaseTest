@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="add_view_select_species" author="natasha" runOnChange="true" runAlways="true">
+        <comment>Создание view для загрузки species</comment>
+        <sql>
+            create or replace view add_species as
+            select
+            id,
+            name,
+            genus,
+            family
+            from species;
+
+            comment on view add_species is 'Представления таблицы species';
+            comment on column add_species.id is 'ID';
+            comment on column add_species.name is 'Вид';
+            comment on column add_species.genus is 'Род';
+            comment on column add_species.family is 'Семейство';
+
+
+            alter table add_species owner to postgres;
+        </sql>
+        <rollback>drop view add_species</rollback>
+    </changeSet>
+
+    <changeSet id="add_view_select_keeper" author="natasha" runOnChange="true" runAlways="true">
+        <comment>Создание view для загрузки keeper</comment>
+        <sql>
+            create or replace view add_keeper as
+            select
+            id,
+            name
+            from Keeper;
+
+            comment on view add_keeper is 'Представления таблицы keeper';
+            comment on column add_keeper.id is 'ID';
+            comment on column add_keeper.name is 'Имя';
+
+
+            alter table add_keeper owner to postgres;
+        </sql>
+        <rollback>drop view add_keeper</rollback>
+    </changeSet>
+
+    <changeSet id="add_view_select_enclosure" author="natasha" runOnChange="true" runAlways="true">
+        <comment>Создание view для загрузки enclosure</comment>
+        <sql>
+            create or replace view add_enclosure as
+            select
+            id,
+            number
+            from Enclosure;
+
+            comment on view add_enclosure is 'Представления таблицы enclosure';
+            comment on column add_enclosure.id is 'ID';
+            comment on column add_enclosure.number is 'Номер';
+
+
+            alter table add_enclosure owner to postgres;
+        </sql>
+        <rollback>drop view add_enclosure</rollback>
+    </changeSet>
+
+    <changeSet id="add_view_select_animal" author="natasha" runOnChange="true" runAlways="true">
+        <comment>Создание view для загрузки animal</comment>
+        <sql>
+            create or replace view add_animal as
+            select
+            id,
+            nickname,
+            species,
+            sex,
+            age,
+            height,
+            weight,
+            continent,
+            keeper,
+            enclosure
+            from animal;
+
+            comment on view add_animal is 'Представления таблицы animal';
+            comment on column add_animal.id is 'ID';
+            comment on column add_animal.nickname is 'Кличка';
+            comment on column add_animal.species is 'Вид';
+            comment on column add_animal.sex is 'Пол';
+            comment on column add_animal.age is 'Возраст';
+            comment on column add_animal.height is 'Рост';
+            comment on column add_animal.weight is 'Вес';
+            comment on column add_animal.continent is 'Континент';
+            comment on column add_animal.keeper is 'Смотритель';
+            comment on column add_animal.enclosure is 'Клетка';
+
+            alter table add_animal owner to postgres;
+        </sql>
+        <rollback>drop view add_animal</rollback>
+    </changeSet>
+
+</databaseChangeLog>

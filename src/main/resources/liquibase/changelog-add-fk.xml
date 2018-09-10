@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="animal_add_foreign_key_species" author="natasha">
+        <comment>Внешняя ссылка "species" для таблицы "animal"</comment>
+        <sql>
+            alter table animal
+            add constraint animal_species_fkey
+            foreign key (species) references species(id);
+        </sql>
+        <rollback>
+            alter table animal drop constraint animal_species_fkey;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="animal_add_foreign_key_keeper" author="natasha">
+        <comment>Внешняя ссылка "keeper" для таблицы "animal"</comment>
+        <sql>
+            alter table animal
+            add constraint animal_keeper_fkey
+            foreign key (keeper) references keeper(id);
+        </sql>
+        <rollback>
+            alter table animal drop constraint animal_keeper_fkey;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="animal_add_foreign_key_enclosure" author="natasha">
+        <comment>Внешняя ссылка "enclosure" для таблицы "animal"</comment>
+        <sql>
+            alter table animal
+            add constraint animal_enclosure_fkey
+            foreign key (enclosure) references species(id);
+        </sql>
+        <rollback>
+            alter table animal drop constraint animal_enclosure_fkey;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="keeper_enclosure_add_foreign_key_enclosure" author="natasha">
+        <comment>Внешняя ссылка "enclosure" для таблицы "keeper_enclosure"</comment>
+        <sql>
+            alter table keeper_enclosure
+            add constraint keeper_enclosure_enclosure_fkey
+            foreign key (enclosure) references enclosure(id);
+        </sql>
+        <rollback>
+            alter table keeper_enclosure drop constraint keeper_enclosure_enclosure_fkey;
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="keeper_enclosure_add_foreign_key_keeper" author="natasha">
+        <comment>Внешняя ссылка "keeper" для таблицы "keeper_enclosure"</comment>
+        <sql>
+            alter table keeper_enclosure
+            add constraint keeper_enclosure_keeper_fkey
+            foreign key (keeper) references keeper(id);
+        </sql>
+        <rollback>
+            alter table keeper_enclosure drop constraint keeper_enclosure_keeper_fkey;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

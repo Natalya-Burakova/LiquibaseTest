@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert_enclosure" author="natasha">
+        <comment>Добавление записей в таблицу enclosure</comment>
+        <sql>
+            insert into enclosure(number) values (101);
+            insert into enclosure(number) values (255);
+            insert into enclosure(number) values (355);
+            insert into enclosure(number) values (468);
+            insert into enclosure(number) values (511);
+        </sql>
+        <rollback>
+            delete from enclosure where number in (101, 255, 355, 468, 511);
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="insert_keeper" author="natasha">
+        <comment>Добавление записей в таблицу keeper</comment>
+        <sql>
+            insert into keeper(name) values ('Ivan Ivanov');
+            insert into keeper(name) values ('Alexandr Baranov');
+            insert into keeper(name) values ('Michail Dorb');
+            insert into keeper(name) values ('Ivan Kek');
+        </sql>
+        <rollback>
+            delete from keeper where name='Ivan Ivanov' or name='Alexandr Baranov' or name='Michail Dorb' or name='Ivan Kek';
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="insert_species" author="natasha">
+        <comment>Добавление записей в таблицу species</comment>
+        <sql>
+            insert into species(family, genus, name) values ('Cercopithecidae','Macaca', 'Tonkean macaque');
+            insert into species(family, genus, name) values ('Felidae','Panthera', 'Malayan tiger');
+            insert into species(family, genus, name) values ('Cervidae','Rusa', 'Sri Lankan sambar deer');
+        </sql>
+        <rollback>
+            delete from keeper where name='Tonkean macaque' or name='Malayan tiger' or name='Sri Lankan sambar deer';
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="insert_animal" author="natasha">
+        <comment>Добавление записей в таблицу animal</comment>
+        <sql>
+            insert into animal(nickname, species, sex, age, height, weight, continent, keeper, enclosure) values ('Macka', 1, 'm', 1, 100, 15, 'Europe', 1, 2);
+            insert into keeper_enclosure(enclosure, keeper) values (2, 1);
+        </sql>
+        <rollback>
+            delete from animal where nickname='Macka';
+            delete from keeper_enclosure where enclosure=2 and keeper=1;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

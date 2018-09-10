@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="create_animal" author="natasha">
+        <comment>Создание таблицы "animal"</comment>
+        <sql>
+            create table animal
+            (id       serial not null,
+            nickname  varchar(100) unique not null,
+            species   integer not null,
+            sex       varchar(1),
+            age       integer,
+            height    integer,
+            weight    integer,
+            continent varchar(100),
+            keeper    integer not null,
+            enclosure integer not null,
+            constraint animal_pkey primary key(id));
+
+            alter table animal owner to postgres;
+        </sql>
+        <rollback>
+            drop table animal;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_keeper" author="natasha">
+        <comment>Создание таблицы "keeper"</comment>
+        <sql>
+            create table keeper
+            (id     serial not null,
+            name    varchar(100) unique not null,
+            constraint keeper_pkey primary key(id));
+
+            alter table keeper owner to postgres;
+        </sql>
+        <rollback>
+            drop table keeper;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_species" author="natasha">
+        <comment>Создание таблицы "species"</comment>
+        <sql>
+            create table species
+            (id    serial not null,
+            name   varchar(200) unique not null,
+            genus  varchar(200) not null,
+            family varchar(200) not null,
+            constraint species_pkey primary key(id));
+
+            alter table species owner to postgres;
+        </sql>
+        <rollback>
+            drop table species;
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="create_enclosure" author="natasha">
+        <comment>Создание таблицы "enclosure"</comment>
+        <sql>
+            create table enclosure
+            (id    serial not null,
+            number  integer not null,
+            constraint enclosure_pkey primary key(id));
+
+            alter table enclosure owner to postgres;
+        </sql>
+        <rollback>
+            drop table enclosure;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_keeper_enclosure" author="natasha">
+        <comment>Создание таблицы "keeper_enclosure"</comment>
+        <sql>
+            create table keeper_enclosure
+            (id    serial not null,
+            enclosure integer not null,
+            keeper integer not null,
+            constraint keeper_enclosure_pkey primary key(id));
+
+            alter table keeper_enclosure owner to postgres;
+        </sql>
+        <rollback>
+            drop table keeper_enclosure;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

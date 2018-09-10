@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="add_comment" author="natasha">
+        <comment>Добавление комментариев для таблиц</comment>
+        <sql>
+            comment on table animal is 'Животное';
+            comment on column animal.id is 'ID животного';
+            comment on column animal.nickname is 'Кличка животного';
+            comment on column animal.species is 'Вид животного';
+            comment on column animal.sex is 'Пол животного';
+            comment on column animal.age is 'Возраст животного';
+            comment on column animal.height is 'Рост животного';
+            comment on column animal.weight is 'Вес животного';
+            comment on column animal.continent is 'Континент животного';
+            comment on column animal.keeper is 'Надсмоторщик животного';
+            comment on column animal.enclosure is 'Клетка животного';
+
+            comment on table keeper is 'Смотритель';
+            comment on column keeper.id is 'ID смотрителя';
+            comment on column keeper.name is 'Имя смотрителя';
+
+
+            comment on table species is 'Вид';
+            comment on column species.id is 'ID вида';
+            comment on column species.name is 'Название вида';
+            comment on column species.genus is 'Название рода';
+            comment on column species.family is 'Название семейства';
+
+
+            comment on table enclosure is 'Клетка';
+            comment on column enclosure.id is 'ID клетки';
+            comment on column enclosure.number is 'Номер клетки';
+
+
+            comment on table keeper_enclosure is 'Отношение смотритель-клетка';
+            comment on column keeper_enclosure.id is 'ID отношения смотритель-клетка';
+            comment on column keeper_enclosure.keeper is 'Смотритель';
+            comment on column keeper_enclosure.enclosure is 'Клетка';
+        </sql>
+    </changeSet>
+</databaseChangeLog>
